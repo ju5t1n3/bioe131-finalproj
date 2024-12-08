@@ -17,7 +17,10 @@ def download_pdb_by_id(pdb_id, output_dir="pdb_structures"):
     else:
         print(f"Failed to download PDB file for {pdb_id}: {response.status_code}")
 
-# download_pdb_by_id('5DVW')
+pdbs = ['5DVW', '3FKE', '2EBO', '4M0Q', '7K5L', '4QB0']
+
+for i in pdbs:
+    download_pdb_by_id(i)
 
 
     
