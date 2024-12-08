@@ -11,5 +11,36 @@
     <script defer="defer" src="static/js/main.062a7b43.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.0/3Dmol-min.js"></script>
 </head>
-</html>
+<body style="overscroll-behavior:none">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
 
+    <!-- 3Dmol.js Protein Viewer -->
+    <h1>Protein 3D Viewer</h1>
+    <div id="protein-viewer" style="width: 600px; height: 400px;"></div>
+    <script>
+        let viewer = $3Dmol.createViewer("protein-viewer", {backgroundColor: "white"});
+
+        // Path to your PDB file
+        let pdbPath = "../pdb_structures/5DVW.pdb";  // Adjust the path relative to index.html
+
+        // Load the PDB file
+        fetch(pdbPath)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to load PDB file: ${response.statusText}`);
+                }
+                return response.text();
+            })
+            .then(pdbContent => {
+                viewer.addModel(pdbContent, "pdb");
+                viewer.setStyle({}, {cartoon: {color: "spectrum"}});
+                viewer.zoomTo();
+                viewer.render();
+            })
+            .catch(error => {
+                console.error("Error loading PDB file:", error);
+            });
+    </script>
+</body>
+</html>
