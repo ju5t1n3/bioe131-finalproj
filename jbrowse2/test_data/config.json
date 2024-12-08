@@ -488,14 +488,12 @@
         "locationType": "UriLocation"
       },
       "assemblyNames": ["hg38"]
-    },
-    {
+    }
+  ],
   "plugins": [
     {
       "name": "Protein3d",
       "url": "https://unpkg.com/jbrowse-plugin-protein3d/dist/jbrowse-plugin-protein3d.umd.production.min.js"
     }
-  ]
-}
   ]
 }
