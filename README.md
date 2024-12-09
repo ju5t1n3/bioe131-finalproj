@@ -11,8 +11,8 @@ chmod +x setup_linuxbrew.sh
 ### Step 2: Install Necessary Tools
 Run the scripts below to install the tools needed which includes Node.js, the JBrowse2 cli, wget, apache2, samtools, and tabix:
 ```
-chmod +x setup_jbrowse.sh
-./setup_jbrowse.sh
+chmod +x tools_.sh
+./tools_setup.sh
 ```
 
 ### Step 3: Setup Apache Server
