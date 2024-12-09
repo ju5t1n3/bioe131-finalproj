@@ -58,6 +58,12 @@ setup_conda() {
         log "Conda is not installed. Please install Conda and try again."
         exit 1
     fi
+    if ! grep -q "conda initialize" ~/.bashrc ~/.zshrc 2>/dev/null; then
+        log "Initializing Conda for the shell..."
+        conda init
+        log "Please restart your terminal and re-run the script."
+        exit 1
+    fi
 
     log "Creating and activating Conda environment 'ncbi_datasets'..."
     conda create -n ncbi_datasets -y
