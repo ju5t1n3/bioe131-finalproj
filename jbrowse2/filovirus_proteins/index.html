@@ -13,24 +13,19 @@
         }
         .container {
             width: 80%;
-            margin: 0 auto;
+            margin: 20px auto;
             text-align: center;
         }
-        .description {
-            margin-bottom: 30px;
-            font-size: 1.2em;
-            color: #333;
-        }
-        .viewer-title {
-            font-size: 1.5em;
-            margin: 20px 0;
-        }
-        #protein-viewer {
+        .viewer {
             width: 600px;
             height: 400px;
-            margin: 20px auto; /* Center horizontally and add vertical space */
-            display: block; /* Ensure it occupies its own block */
-            position: relative; /* Prevent it from floating on top */
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            display: inline-block;
+        }
+        .viewer-title {
+            font-size: 1.2em;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -38,176 +33,60 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
     <div class="container">
-        <!-- Protein Image -->
-        <img src="media/esm3_diagram.png" alt="ESM Protein Structure" style="width: 800px; height: 400px; margin-bottom: 30px;">
+        <!-- Viewer for Protein 1 -->
+        <h2 class="viewer-title">Protein 1 (2EBO)</h2>
+        <div id="viewer-2EBO" class="viewer"></div>
 
-        <!-- Description -->
-        <p class="description">
-            This is a description of the protein being visualized. Replace this text with details about the protein, such as its structure, function, or significance.
-        </p>
+        <!-- Viewer for Protein 2 -->
+        <h2 class="viewer-title">Protein 2 (3FKE)</h2>
+        <div id="viewer-3FKE" class="viewer"></div>
 
-        <!-- 3D View Title -->
-        <h2 class="viewer-title">3D View of Protein Structure</h2>
+        <!-- Viewer for Protein 3 -->
+        <h2 class="viewer-title">Protein 3 (4M0Q)</h2>
+        <div id="viewer-4M0Q" class="viewer"></div>
 
-        <!-- 3Dmol.js Protein Viewer -->
-        <div id="protein-viewer"></div>
+        <!-- Viewer for Protein 4 -->
+        <h2 class="viewer-title">Protein 4 (4QB0)</h2>
+        <div id="viewer-4QB0" class="viewer"></div>
+
+        <!-- Viewer for Protein 5 -->
+        <h2 class="viewer-title">Protein 5 (5DVW)</h2>
+        <div id="viewer-5DVW" class="viewer"></div>
+
+        <!-- Viewer for Protein 6 -->
+        <h2 class="viewer-title">Protein 6 (7K5L)</h2>
+        <div id="viewer-7K5L" class="viewer"></div>
     </div>
 
     <script>
-        // Initialize the 3Dmol.js viewer
-        let viewer = $3Dmol.createViewer("protein-viewer", {backgroundColor: "white"});
+        // Function to initialize a viewer for a specific div and PDB file
+        function loadProtein(viewerId, pdbPath) {
+            const viewer = $3Dmol.createViewer(viewerId, {backgroundColor: "white"});
+            fetch(pdbPath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to load PDB file: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(pdbContent => {
+                    viewer.addModel(pdbContent, "pdb"); // Add the PDB model
+                    viewer.setStyle({}, {cartoon: {color: "spectrum"}}); // Apply cartoon style
+                    viewer.zoomTo(); // Center the view
+                    viewer.render(); // Render the viewer
+                })
+                .catch(error => {
+                    console.error(`Error loading PDB file (${pdbPath}):`, error);
+                });
+        }
 
-        // Path to your PDB file
-        let pdbPath = "pdb_structures/2EBO.pdb";  
-
-        // Load the PDB file and render the structure
-        fetch(pdbPath)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Failed to load PDB file: ${response.statusText}`);
-                }
-                return response.text();
-            })
-            .then(pdbContent => {
-                viewer.addModel(pdbContent, "pdb"); // Add the PDB model
-                viewer.setStyle({}, {cartoon: {color: "spectrum"}}); // Apply cartoon style
-                viewer.zoomTo(); // Center the view
-                viewer.render(); // Render the viewer
-            })
-            .catch(error => {
-                console.error("Error loading PDB file:", error);
-            });
+        // Load multiple proteins
+        loadProtein("viewer-2EBO", "pdb_structures/2EBO.pdb");
+        loadProtein("viewer-3FKE", "pdb_structures/3FKE.pdb");
+        loadProtein("viewer-4M0Q", "pdb_structures/4M0Q.pdb");
+        loadProtein("viewer-4QB0", "pdb_structures/4QB0.pdb");
+        loadProtein("viewer-5DVW", "pdb_structures/5DVW.pdb");
+        loadProtein("viewer-7K5L", "pdb_structures/7K5L.pdb");
     </script>
-
-    <script>
-        // Initialize the 3Dmol.js viewer
-        let viewer = $3Dmol.createViewer("protein-viewer", {backgroundColor: "white"});
-
-        // Path to your PDB file
-        let pdbPath = "pdb_structures/3FKE.pdb";  
-
-        // Load the PDB file and render the structure
-        fetch(pdbPath)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Failed to load PDB file: ${response.statusText}`);
-                }
-                return response.text();
-            })
-            .then(pdbContent => {
-                viewer.addModel(pdbContent, "pdb"); // Add the PDB model
-                viewer.setStyle({}, {cartoon: {color: "spectrum"}}); // Apply cartoon style
-                viewer.zoomTo(); // Center the view
-                viewer.render(); // Render the viewer
-            })
-            .catch(error => {
-                console.error("Error loading PDB file:", error);
-            });
-    </script>
-
-    <script>
-        // Initialize the 3Dmol.js viewer
-        let viewer = $3Dmol.createViewer("protein-viewer", {backgroundColor: "white"});
-
-        // Path to your PDB file
-        let pdbPath = "pdb_structures/4M0Q.pdb";  
-
-        // Load the PDB file and render the structure
-        fetch(pdbPath)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Failed to load PDB file: ${response.statusText}`);
-                }
-                return response.text();
-            })
-            .then(pdbContent => {
-                viewer.addModel(pdbContent, "pdb"); // Add the PDB model
-                viewer.setStyle({}, {cartoon: {color: "spectrum"}}); // Apply cartoon style
-                viewer.zoomTo(); // Center the view
-                viewer.render(); // Render the viewer
-            })
-            .catch(error => {
-                console.error("Error loading PDB file:", error);
-            });
-    </script>
-
-    <script>
-        // Initialize the 3Dmol.js viewer
-        let viewer = $3Dmol.createViewer("protein-viewer", {backgroundColor: "white"});
-
-        // Path to your PDB file
-        let pdbPath = "pdb_structures/4QB0.pdb";  
-
-        // Load the PDB file and render the structure
-        fetch(pdbPath)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Failed to load PDB file: ${response.statusText}`);
-                }
-                return response.text();
-            })
-            .then(pdbContent => {
-                viewer.addModel(pdbContent, "pdb"); // Add the PDB model
-                viewer.setStyle({}, {cartoon: {color: "spectrum"}}); // Apply cartoon style
-                viewer.zoomTo(); // Center the view
-                viewer.render(); // Render the viewer
-            })
-            .catch(error => {
-                console.error("Error loading PDB file:", error);
-            });
-    </script>
-
-    <script>
-        // Initialize the 3Dmol.js viewer
-        let viewer = $3Dmol.createViewer("protein-viewer", {backgroundColor: "white"});
-
-        // Path to your PDB file
-        let pdbPath = "pdb_structures/5DVW.pdb";  
-
-        // Load the PDB file and render the structure
-        fetch(pdbPath)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Failed to load PDB file: ${response.statusText}`);
-                }
-                return response.text();
-            })
-            .then(pdbContent => {
-                viewer.addModel(pdbContent, "pdb"); // Add the PDB model
-                viewer.setStyle({}, {cartoon: {color: "spectrum"}}); // Apply cartoon style
-                viewer.zoomTo(); // Center the view
-                viewer.render(); // Render the viewer
-            })
-            .catch(error => {
-                console.error("Error loading PDB file:", error);
-            });
-    </script>
-
-    <script>
-        // Initialize the 3Dmol.js viewer
-        let viewer = $3Dmol.createViewer("protein-viewer", {backgroundColor: "white"});
-
-        // Path to your PDB file
-        let pdbPath = "pdb_structures/7K5L.pdb";  
-
-        // Load the PDB file and render the structure
-        fetch(pdbPath)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Failed to load PDB file: ${response.statusText}`);
-                }
-                return response.text();
-            })
-            .then(pdbContent => {
-                viewer.addModel(pdbContent, "pdb"); // Add the PDB model
-                viewer.setStyle({}, {cartoon: {color: "spectrum"}}); // Apply cartoon style
-                viewer.zoomTo(); // Center the view
-                viewer.render(); // Render the viewer
-            })
-            .catch(error => {
-                console.error("Error loading PDB file:", error);
-            });
-    </script>
-    
 </body>
 </html>
