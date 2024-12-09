@@ -44,7 +44,7 @@
     <script>
         let viewer = $3Dmol.createViewer("protein-viewer", {backgroundColor: "white"});
 
-        let pdbPath = "../pdb_structures/5DVW.pdb";  
+        let pdbPath = "/pdb_structures/5DVW.pdb";  
         fetch(pdbPath)
             .then(response => {
                 if (!response.ok) {
