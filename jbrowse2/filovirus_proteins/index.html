@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Protein Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.0/3Dmol-min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .viewer {
+            width: 600px;
+            height: 400px;
+            margin: 20px auto; /* Center horizontally */
+            border: 1px solid #ccc;
+            position: relative; /* Prevent floating */
+            display: block; /* Each viewer in its own block */
+        }
+        .viewer-title {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+        .description {
+            margin-bottom: 30px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <!-- Image and Description -->
+    <div class="container">
+        <img src="media/esm3_diagram.png" alt="ESM Protein Diagram" style="width: 800px; height: 400px; margin-bottom: 30px;">
+        <p class="description">
+            This page displays 3D visualizations of several proteins. Use the viewers below to explore the structure of each protein in detail.
+        </p>
+    </div>
+
+    <!-- Viewers for Multiple Proteins -->
+    <div class="container">
+        <!-- Viewer for Protein 1 -->
+        <h2 class="viewer-title">Protein 1 (2EBO)</h2>
+        <div id="viewer-2EBO" class="viewer"></div>
+
+        <!-- Viewer for Protein 2 -->
+        <h2 class="viewer-title">Protein 2 (3FKE)</h2>
+        <div id="viewer-3FKE" class="viewer"></div>
+
+        <!-- Viewer for Protein 3 -->
+        <h2 class="viewer-title">Protein 3 (4M0Q)</h2>
+        <div id="viewer-4M0Q" class="viewer"></div>
+
+        <!-- Viewer for Protein 4 -->
+        <h2 class="viewer-title">Protein 4 (4QB0)</h2>
+        <div id="viewer-4QB0" class="viewer"></div>
+
+        <!-- Viewer for Protein 5 -->
+        <h2 class="viewer-title">Protein 5 (5DVW)</h2>
+        <div id="viewer-5DVW" class="viewer"></div>
+
+        <!-- Viewer for Protein 6 -->
+        <h2 class="viewer-title">Protein 6 (7K5L)</h2>
+        <div id="viewer-7K5L" class="viewer"></div>
+    </div>
+
+    <script>
+        // Function to initialize a viewer for a specific div and PDB file
+        function loadProtein(viewerId, pdbPath) {
+            const viewer = $3Dmol.createViewer(viewerId, {backgroundColor: "white"});
+            fetch(pdbPath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to load PDB file: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(pdbContent => {
+                    viewer.addModel(pdbContent, "pdb"); // Add the PDB model
+                    viewer.setStyle({}, {cartoon: {color: "spectrum"}}); // Apply cartoon style
+                    viewer.zoomTo(); // Center the view
+                    viewer.render(); // Render the viewer
+                })
+                .catch(error => {
+                    console.error(`Error loading PDB file (${pdbPath}):`, error);
+                });
+        }
+
+        // Load multiple proteins
+        loadProtein("viewer-2EBO", "pdb_structures/2EBO.pdb");
+        loadProtein("viewer-3FKE", "pdb_structures/3FKE.pdb");
+        loadProtein("viewer-4M0Q", "pdb_structures/4M0Q.pdb");
+        loadProtein("viewer-4QB0", "pdb_structures/4QB0.pdb");
+        loadProtein("viewer-5DVW", "pdb_structures/5DVW.pdb");
+        loadProtein("viewer-7K5L", "pdb_structures/7K5L.pdb");
+    </script>
+</body>
+</html>
