@@ -41,7 +41,7 @@
 
     <div class="container">
         <!-- Viewer for Original Protein -->
-        <h2 class="viewer-title">Matrix protein VP40 (PDB ID: 4EJE) here</h2>
+        <h2 class="viewer-title">NP - Nucleoprotein (PDB ID: 5T3T)</h2>
         <div id="viewer-original" class="viewer"></div>
         <p><strong>cRMSD:</strong> <span id="crmsd-original">Loading...</span></p>
 
@@ -121,7 +121,7 @@
         loadProtein(
             "viewer-original",             // Viewer ID
             "original_structure.pdb",      // Path to PDB file
-            "original_domain.json",   // Path to JSON with highlighted residues
+            "original_domain.json.json",   // Path to JSON with highlighted residues
             "crmsd.json", // Path to JSON with cRMSD data
             "lightgrey"
         );
@@ -129,7 +129,7 @@
         loadProtein(
             "viewer-generated",             // Viewer ID
             "generated_structure.pdb",      // Path to PDB file
-            "generated_domain.json",   // Path to JSON with highlighted residues
+            "generated_domain.json.json",   // Path to JSON with highlighted residues
             "crmsd.json", // Path to JSON with cRMSD data
             "lightgreen"
         );
