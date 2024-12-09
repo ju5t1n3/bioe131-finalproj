@@ -6,6 +6,11 @@
     <title>Protein Viewer</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.0/3Dmol-min.js"></script>
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
         .container {
             width: 80%;
             margin: 0 auto;
@@ -21,11 +26,15 @@
             margin: 20px 0;
         }
         #protein-viewer {
-            margin: 20px auto; /* Add vertical space around the viewer */
+            width: 600px;
+            height: 400px;
+            margin: 20px auto; /* Center horizontally and add vertical space */
+            display: block; /* Ensure it occupies its own block */
+            position: relative; /* Prevent it from floating on top */
         }
     </style>
 </head>
-<body style="overscroll-behavior:none">
+<body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
     <div class="container">
@@ -34,14 +43,14 @@
 
         <!-- Description -->
         <p class="description">
-            This is a description of the protein being visualized. Replace this text with details about the protein, such as its structure, function, or significance. Edit made! 
+            This is a description of the protein being visualized. Replace this text with details about the protein, such as its structure, function, or significance.
         </p>
 
         <!-- 3D View Title -->
         <h2 class="viewer-title">3D View of Protein Structure</h2>
 
         <!-- 3Dmol.js Protein Viewer -->
-        <div id="protein-viewer" style="width: 600px; height: 400px;"></div>
+        <div id="protein-viewer"></div>
     </div>
 
     <script>
