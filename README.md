@@ -30,14 +30,29 @@ chmod +x download_data.sh
 ./download_data.sh
 ```
 
+Find and set apache2 server folder:
+```
+# be sure to replace the path with your actual true path!
+export APACHE_ROOT='/path/to/rootdir'
+```
+If you are really struggling to find the APACHE_ROOT folder, you could try searching for it.
+```
+sudo find / -name "www" 2>/dev/null
+```
+
 Then add the tracks to JBrowse2:
 ```
-jbrowse add-assembly genes.fna --out jbrowse2 --load copy
+jbrowse add-assembly genes.fna --out $APACHE_ROOT/jbrowse2 --load copy
 jbrowse sort-gff genomic.gff > annotations.gff
 bgzip annotations.gff
 tabix annotations.gff.gz
-jbrowse add-track annotations.gff.gz --out jbrowse2 --load copy
-jbrowse text-index --out jbrowse2
+jbrowse add-track annotations.gff.gz --out $APACHE_ROOT/jbrowse2 --load copy
+jbrowse text-index --out $APACHE_ROOT/jbrowse2
+```
+
+Move the filovirus_proteins into your root jbrowse2 folder, in order to visualize proteins later on:
+```
+cp jbrowse2/filovirus_proteins $APACHE_ROOT/jbrowse2
 ```
 
 ### Step 5: Use your genome browser to explore Filovirus proteins amd their structures
