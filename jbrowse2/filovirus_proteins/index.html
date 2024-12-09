@@ -34,13 +34,11 @@
             color: #333;
         }
         .title {
-            display: flex;
             margin-top: auto;
             font-family: Arial, Helvetica, sans-serif;
             align-items: center;
         }
         .header {
-            display: flex;
             margin-top: auto;
             font-family: Arial, Helvetica, sans-serif;
         }
@@ -50,17 +48,18 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <h1 class="title">Explore Filovirus Protein Structures</h1>
 
-    <h3 class="header">Aim:</h3>
-    <p class="description">
-        This webpage showcases the potential of advanced protein structure prediction and generative modeling techniques in understanding and harnessing the therapeutic 
-        potential of proteins from the Filovirus genome. We aim to host and display 3D structures of select Filovirus proteins, providing detailed insights into their structural 
-        features. We leveraged the ESM3 generative model to design novel proteins by using selected binding or receptor motifs from these 
-        proteins as scaffolds. This work demonstrates the adaptability of generative diffusion models in creating hypothetical protein structures that could inform therapeutic 
-        strategies. While these generated proteins are not validated binders, they serve as a proof of concept for the innovative use of AI-driven approaches in therapeutic design. 
-        Ultimately, this platform seeks to inspire and educate researchers and students about the intersections of computational biology, protein engineering, and therapeutic innovation.
+    <div class="container">
+        <h3 class="header">Aim:</h3>
+        <p class="description">
+            This webpage showcases the potential of advanced protein structure prediction and generative modeling techniques in understanding and harnessing the therapeutic 
+            potential of proteins from the Filovirus genome. We aim to host and display 3D structures of select Filovirus proteins, providing detailed insights into their structural 
+            features. We leveraged the ESM3 generative model to design novel proteins by using selected binding or receptor motifs from these 
+            proteins as scaffolds. This work demonstrates the adaptability of generative diffusion models in creating hypothetical protein structures that could inform therapeutic 
+            strategies. While these generated proteins are not validated binders, they serve as a proof of concept for the innovative use of AI-driven approaches in therapeutic design. 
+            Ultimately, this platform seeks to inspire and educate researchers and students about the intersections of computational biology, protein engineering, and therapeutic innovation.
 
-    </p>
-
+        </p>
+    </div>
     <!-- Image and Description -->
     <div class="container">
         <img src="media/esm3_diagram.png" alt="ESM Protein Diagram" style="width: 800px; height: 400px; margin-bottom: 30px;">
@@ -93,9 +92,7 @@
         <div id="viewer-5DVW" class="viewer"></div>
 
         <!-- Viewer for Protein 6 -->
-        <h2 class="viewer-title">Matrix protein VP40 (PDB ID: 4EJE)
-        <a href="4EJE/index.html">Edit Me!</a>
-        </h2>
+        <h2 class="viewer-title">Matrix protein VP40 (PDB ID: 4EJE)</h2>
         <div id="viewer-4EJE" class="viewer"></div>
     </div>
 
