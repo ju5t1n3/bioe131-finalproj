@@ -2,9 +2,7 @@ import requests
 import os
 
 def download_pdb_by_id(pdb_id, output_dir="pdb_structures"):
-    """
-    Download the PDB file for a given PDB ID.
-    """
+   
     os.makedirs(output_dir, exist_ok=True)
     file_path = os.path.join(output_dir, f"{pdb_id}.pdb")
     
@@ -17,7 +15,7 @@ def download_pdb_by_id(pdb_id, output_dir="pdb_structures"):
     else:
         print(f"Failed to download PDB file for {pdb_id}: {response.status_code}")
 
-pdbs = ['5DVW', '3FKE', '2EBO', '4M0Q', '7K5L', '4QB0']
+pdbs = ['5DVW', '4ZTA', '6F6N', '4M0Q', '4EJE', '5T3T']
 
 for i in pdbs:
     download_pdb_by_id(i)
