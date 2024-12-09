@@ -38,6 +38,10 @@ fi
 log "Installing Fast Node Manager (fnm)."
 curl -fsSL https://fnm.vercel.app/install | bash
 
+# Source ~/.bashrc to load fnm into the current shell environment
+log "Applying fnm configuration to the current session."
+source ~/.bashrc
+
 # Activate fnm
 log "Activating fnm."
 source ~/.bashrc
@@ -66,8 +70,8 @@ else
 fi
 
 # Install JBrowse CLI
-log "Installing JBrowse CLI globally."
-sudo npm install -g @jbrowse/cli
+log "Installing JBrowse CLI."
+npm install -g @jbrowse/cli
 
 # Verify JBrowse CLI installation
 log "Verifying JBrowse CLI installation."
