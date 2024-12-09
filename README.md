@@ -45,3 +45,7 @@ Launch JBrowse2 by opening http://yourhost/jbrowse2/ again in your web browser.
 
 ### IF... this doesn't work for you, you can refer back to this github lab for the setup instructions
 https://github.com/bioe131/lab-8-toussm?tab=readme-ov-file
+
+## Protein Data! The most exciting part ;)
+For protein reproducibility, refer to the README.md within jbrowse2/filovirus_proteins. 
+Within this folder, you can also find the PDBs if you want to use those directly for the JBrowse protein structure plugin. 
