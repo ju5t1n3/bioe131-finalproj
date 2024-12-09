@@ -27,7 +27,7 @@
 
     <div class="container">
         <!-- Protein Image -->
-        <img src="media/esm3_diagram.png" alt="ESM Transformer Architecture">
+        <img src="media/esm3_diagram.png" alt="ESM Protein Structure" style="width: 800px; height: 600px; margin-bottom: 20px;">
 
         <!-- Description -->
         <p class="description">
@@ -42,9 +42,13 @@
     </div>
 
     <script>
+        // Initialize the 3Dmol.js viewer
         let viewer = $3Dmol.createViewer("protein-viewer", {backgroundColor: "white"});
 
-        let pdbPath = "/pdb_structures/5DVW.pdb";  
+        // Path to your PDB file
+        let pdbPath = "pdb_structures/5DVW.pdb";  
+
+        // Load the PDB file and render the structure
         fetch(pdbPath)
             .then(response => {
                 if (!response.ok) {
@@ -53,10 +57,10 @@
                 return response.text();
             })
             .then(pdbContent => {
-                viewer.addModel(pdbContent, "pdb");
-                viewer.setStyle({}, {cartoon: {color: "spectrum"}});
-                viewer.zoomTo();
-                viewer.render();
+                viewer.addModel(pdbContent, "pdb"); // Add the PDB model
+                viewer.setStyle({}, {cartoon: {color: "spectrum"}}); // Apply cartoon style
+                viewer.zoomTo(); // Center the view
+                viewer.render(); // Render the viewer
             })
             .catch(error => {
                 console.error("Error loading PDB file:", error);
