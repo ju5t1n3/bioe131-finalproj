@@ -5,21 +5,46 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Protein Viewer</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.0/3Dmol-min.js"></script>
+    <style>
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .description {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .viewer-title {
+            font-size: 1.5em;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body style="overscroll-behavior:none">
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
 
-    <!-- 3Dmol.js Protein Viewer -->
-    <h1>Protein 3D Viewer</h1>
-    <div id="protein-viewer" style="width: 600px; height: 400px;"></div>
+    <div class="container">
+        <!-- Protein Image -->
+        <img src="media/esm3_diagram.png" alt="ESM Transformer Architecture" style="width: 300px; height: 200px; margin-bottom: 20px;">
+
+        <!-- Description -->
+        <p class="description">
+            This is a description of the protein being visualized. Replace this text with details about the protein, such as its structure, function, or significance.
+        </p>
+
+        <!-- 3D View Title -->
+        <h2 class="viewer-title">3D View of Protein Structure</h2>
+
+        <!-- 3Dmol.js Protein Viewer -->
+        <div id="protein-viewer" style="width: 600px; height: 400px; margin: 0 auto;"></div>
+    </div>
+
     <script>
         let viewer = $3Dmol.createViewer("protein-viewer", {backgroundColor: "white"});
 
-        // Path to your PDB file
-        let pdbPath = "../../pdb_structures/5DVW.pdb";  // Adjust the path relative to this file
-
-        // Load the PDB file
+        let pdbPath = "../pdb_structures/5DVW.pdb";  
         fetch(pdbPath)
             .then(response => {
                 if (!response.ok) {
