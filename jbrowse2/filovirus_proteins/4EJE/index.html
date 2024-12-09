@@ -40,19 +40,20 @@
     <h1>Explore Filovirus Protein Structures</h1>
 
     <div class="container">
-        <!-- Viewer for Protein 1 -->
-        <h2 class="viewer-title">GP - Envelope glycoprotein (PDB ID: 6F6N)</h2>
+        <!-- Viewer for Protein -->
+        <h2 class="viewer-title">GP - Envelope glycoprotein (Original Structure)</h2>
         <div id="viewer-original" class="viewer"></div>
-        <p><strong>cRMSD:</strong> <span id="crmsd-6F6N">Loading...</span></p>
+        <p><strong>cRMSD:</strong> <span id="crmsd-original">Loading...</span></p>
     </div>
 
     <script>
-        // Function to load JSON data (highlighted residues and cRMSD)
+        // Function to load JSON data
         function loadJSON(filePath) {
+            console.log(`Fetching JSON: ${filePath}`);
             return fetch(filePath)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error(`Failed to load JSON file: ${response.statusText}`);
+                        throw new Error(`Failed to load JSON: ${response.statusText}`);
                     }
                     return response.json();
                 });
@@ -60,19 +61,20 @@
 
         // Function to initialize a viewer for a specific div and PDB file
         function loadProtein(viewerId, pdbPath, highlightPath, crmsdPath) {
-            const viewer = $3Dmol.createViewer(viewerId, {backgroundColor: "white"});
+            console.log(`Loading PDB: ${pdbPath} for viewer ${viewerId}`);
+            const viewer = $3Dmol.createViewer(viewerId, { backgroundColor: "white" });
 
             // Load the PDB file
             fetch(pdbPath)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error(`Failed to load PDB file: ${response.statusText}`);
+                        throw new Error(`Failed to load PDB: ${response.statusText}`);
                     }
                     return response.text();
                 })
                 .then(pdbContent => {
                     viewer.addModel(pdbContent, "pdb"); // Add the PDB model
-                    viewer.setStyle({}, {cartoon: {color: "lightgrey"}}); // Apply cartoon style
+                    viewer.setStyle({}, { cartoon: { color: "lightgrey" } }); // Apply cartoon style
                     viewer.zoomTo(); // Center the view
                     viewer.render(); // Render the viewer
                 })
@@ -83,10 +85,11 @@
             // Load highlighted residues and apply styles
             loadJSON(highlightPath)
                 .then(data => {
+                    console.log("Highlighted Residues:", data.highlighted_residues);
                     if (data.highlighted_residues) {
                         viewer.addStyle(
-                            {resi: data.highlighted_residues},
-                            {cartoon: {color: "cyan"}}
+                            { resi: data.highlighted_residues },
+                            { cartoon: { color: "cyan" } }
                         );
                         viewer.render(); // Update the viewer
                     }
@@ -98,8 +101,9 @@
             // Load cRMSD and display it
             loadJSON(crmsdPath)
                 .then(data => {
+                    console.log("cRMSD Data:", data);
                     if (data.crmsd !== undefined) {
-                        document.getElementById(`crmsd-${viewerId.split('-')[1]}`).textContent = data.crmsd;
+                        document.getElementById(`crmsd-${viewerId.split('-')[1]}`).textContent = data.crmsd.toFixed(4);
                     }
                 })
                 .catch(error => {
@@ -109,10 +113,10 @@
 
         // Load protein with annotated residues and cRMSD
         loadProtein(
-            "viewer-original",              // Viewer ID
-            "original_structure.pdb",  // Path to PDB file
-            "original_domain.json.json",    // Path to JSON with highlighted residues
-            "crmsd.json" // Path to JSON with cRMSD data
+            "viewer-original",             // Viewer ID
+            "original_structure.pdb",      // Path to PDB file
+            "original_domain.json.json",   // Path to JSON with highlighted residues
+            "crmsd.json"                   // Path to JSON with cRMSD data
         );
     </script>
 </body>
