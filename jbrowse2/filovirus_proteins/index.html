@@ -13,19 +13,20 @@
         }
         .container {
             width: 80%;
-            margin: 20px auto;
+            margin: 0 auto;
             text-align: center;
         }
         .viewer {
             width: 600px;
             height: 400px;
-            margin: 20px auto;
+            margin: 20px auto; /* Center horizontally */
             border: 1px solid #ccc;
-            display: inline-block;
+            position: relative; /* Prevent floating */
+            display: block; /* Each viewer in its own block */
         }
         .viewer-title {
             font-size: 1.2em;
-            margin-top: 10px;
+            margin: 20px 0;
         }
         .description {
             margin-bottom: 30px;
