@@ -18,3 +18,15 @@ Now you have your PDBs -- what's next?
 
 ### Step 4: View PDBs with respective encoding genes in Jbrowse2 instructions: 
 
+Go to Tools and Select Plugin Store
+Install Protein3d
+Right Click on the Genome track and select Launch protein view
+Go to Open File Manually
+Upload the protein you would like to view and click Launch 3-D Protein Structure View
+Click the wrench icon
+In the Download Structure box, click Apply
+There should be a tab called Assembly 1 (or the lowest level tab). Click on it
+Select Apply Action
+Select Apply 3D Representation
+Click Apply
+Now you can view your protein
