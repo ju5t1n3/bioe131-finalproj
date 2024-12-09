@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Protein Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.0/3Dmol-min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .viewer {
+            width: 600px;
+            height: 400px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            position: relative;
+            display: block;
+        }
+        .viewer-title {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+        .description {
+            margin-bottom: 30px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <h1>Explore Filovirus Protein Structures</h1>
+
+    <div class="container">
+        <!-- Viewer for Original Protein -->
+        <h2 class="viewer-title">NP - Nucleoprotein (PDB ID: 5T3T)</h2>
+        <div id="viewer-original" class="viewer"></div>
+        <p><strong>cRMSD:</strong> <span id="crmsd-original">Loading...</span></p>
+
+         <!-- Viewer for Edited Protein -->
+        <h2 class="viewer-title">Generated Protein</h2>
+        <div id="viewer-generated" class="viewer"></div>
+        <p><strong>cRMSD:</strong> <span id="crmsd-original">Loading...</span></p>
+        
+    </div>
+
+    <script>
+        // Function to load JSON data
+        function loadJSON(filePath) {
+            console.log(`Fetching JSON: ${filePath}`);
+            return fetch(filePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to load JSON: ${response.statusText}`);
+                    }
+                    return response.json();
+                });
+        }
+
+        // Function to initialize a viewer for a specific div and PDB file
+        function loadProtein(viewerId, pdbPath, highlightPath, crmsdPath, color_choice) {
+            console.log(`Loading PDB: ${pdbPath} for viewer ${viewerId}`);
+            const viewer = $3Dmol.createViewer(viewerId, { backgroundColor: "white" });
+
+            // Load the PDB file
+            fetch(pdbPath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to load PDB: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(pdbContent => {
+                    viewer.addModel(pdbContent, "pdb"); // Add the PDB model
+                    viewer.setStyle({}, { cartoon: { color:  color_choice} }); // Apply cartoon style
+                    viewer.zoomTo(); // Center the view
+                    viewer.render(); // Render the viewer
+                })
+                .catch(error => {
+                    console.error(`Error loading PDB file (${pdbPath}):`, error);
+                });
+
+            // Load highlighted residues and apply styles
+            loadJSON(highlightPath)
+                .then(data => {
+                    console.log("Highlighted Residues:", data.highlighted_residues);
+                    if (data.highlighted_residues) {
+                        viewer.addStyle(
+                            { resi: data.highlighted_residues },
+                            { cartoon: { color: "cyan" } }
+                        );
+                        viewer.render(); // Update the viewer
+                    }
+                })
+                .catch(error => {
+                    console.error(`Error loading highlighted residues (${highlightPath}):`, error);
+                });
+
+            // Load cRMSD and display it
+            loadJSON(crmsdPath)
+                .then(data => {
+                    console.log("cRMSD Data:", data);
+                    if (data.crmsd !== undefined) {
+                        document.getElementById(`crmsd-${viewerId.split('-')[1]}`).textContent = data.crmsd.toFixed(4);
+                    }
+                })
+                .catch(error => {
+                    console.error(`Error loading cRMSD (${crmsdPath}):`, error);
+                });
+        }
+
+        // Load protein with annotated residues and cRMSD
+        loadProtein(
+            "viewer-original",             // Viewer ID
+            "original_structure.pdb",      // Path to PDB file
+            "original_domain.json.json",   // Path to JSON with highlighted residues
+            "crmsd.json", // Path to JSON with cRMSD data
+            "lightgrey"
+        );
+
+        loadProtein(
+            "viewer-generated",             // Viewer ID
+            "generated_structure.pdb",      // Path to PDB file
+            "generated_domain.json.json",   // Path to JSON with highlighted residues
+            "crmsd.json", // Path to JSON with cRMSD data
+            "lightgreen"
+        );
+    </script>
+</body>
+</html>
