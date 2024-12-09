@@ -72,7 +72,7 @@
                 })
                 .then(pdbContent => {
                     viewer.addModel(pdbContent, "pdb"); // Add the PDB model
-                    viewer.setStyle({}, {cartoon: {color: "spectrum"}}); // Apply cartoon style
+                    viewer.setStyle({}, {cartoon: {color: "lightgrey"}}); // Apply cartoon style
                     viewer.zoomTo(); // Center the view
                     viewer.render(); // Render the viewer
                 })
