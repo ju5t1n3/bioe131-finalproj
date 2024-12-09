@@ -12,13 +12,16 @@
             text-align: center;
         }
         .description {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             font-size: 1.2em;
             color: #333;
         }
         .viewer-title {
             font-size: 1.5em;
-            margin-top: 30px;
+            margin: 20px 0;
+        }
+        #protein-viewer {
+            margin: 20px auto; /* Add vertical space around the viewer */
         }
     </style>
 </head>
@@ -27,7 +30,7 @@
 
     <div class="container">
         <!-- Protein Image -->
-        <img src="media/esm3_diagram.png" alt="ESM Protein Structure" style="width: 800px; height: 600px; margin-bottom: 20px;">
+        <img src="media/esm3_diagram.png" alt="ESM Protein Structure" style="width: 800px; height: 400px; margin-bottom: 30px;">
 
         <!-- Description -->
         <p class="description">
@@ -38,7 +41,7 @@
         <h2 class="viewer-title">3D View of Protein Structure</h2>
 
         <!-- 3Dmol.js Protein Viewer -->
-        <div id="protein-viewer" style="width: 600px; height: 400px; margin: 0 auto;"></div>
+        <div id="protein-viewer" style="width: 600px; height: 400px;"></div>
     </div>
 
     <script>
