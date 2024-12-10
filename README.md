@@ -1,4 +1,5 @@
 # bioe131-finalproj
+### Information about our project: https://docs.google.com/document/d/1uAnVLal8CnHdG5Gwyl7I_Li_2vNgQ_itnFkHl_IxIz4/edit?tab=t.0
 
 ## How To Set Up Our Genome Browser
 ### Step 1: Linuxbrew Setup
