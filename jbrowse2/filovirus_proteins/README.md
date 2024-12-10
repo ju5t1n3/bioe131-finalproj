@@ -10,7 +10,7 @@ We leveraged the ESM3 masked large language model (LLM) to design novel proteins
 There are detailed comments explaining protein generation. The first few cells are simply to show you how all this generation works, with step by step outputs. 
 
 However, if you want to skip straight to reproducing the pdb data in the folders for each filovirus protein, run import, esm model upload, and the generate_and_save function (essentially 
-the first 2 and last 2 cells). I used a seed of 42, and if you wish to reproduce my structures exactly, but feel free to use different seeds!
+the first 2 and last 2 cells). We used a seed of 42 if you wish to reproduce these structures exactly, but feel free to use different seeds!
 
 The highlighted residues and crmsd jsons are meant to save this metadata in order to visualize the highlighted domain in a 3D visualizer (e.g. in html). 
 
