@@ -1,6 +1,6 @@
 # bioe131-finalproj
 
-## How to Install JBrowse2 Instance
+## How To Set Up Our Genome Browser
 ### Step 1: Linuxbrew Setup
 Make sure you are using a Debian or Ubuntu distribution. Then go ahead and install linuxbrew, using the commands below to run our setup_linuxbrew.sh script:
 ```
