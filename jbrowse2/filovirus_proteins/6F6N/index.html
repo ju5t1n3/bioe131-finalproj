@@ -37,19 +37,31 @@
 </head>
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <h1>Explore Filovirus Protein Structures</h1>
-
+    
     <div class="container">
+        <p class="description">
+            The envelope glycoprotein (GP) forms trimeric GP1,2 complexes that mediate viral entry by facilitating receptor binding (GP1) and membrane fusion (GP2). GP1 binds to target cell receptors, leveraging cofactors like CD209/DC-SIGN, CLEC4M/DC-SIGNR, and CLEC10A to enhance infectivity. After receptor binding, the virus undergoes clathrin-mediated endocytosis or macropinocytosis. Proteolytic processing by host enzymes removes the glycan cap, enabling GP1 to interact with the NPC1 receptor, while acidic pH triggers GP2 conformational changes for membrane fusion, allowing viral entry.
+            </p>
+        <p class="description">
+            GP plays a significant role in immune evasion and pathogenesis. It down-regulates integrins and adhesion molecules, disrupting cell adhesion and vascular integrity, which may contribute to hemorrhagic symptoms. It interacts with TLR4 to activate immune cells, promoting inflammatory responses and bystander T-cell death. GP also suppresses natural killer cell activity and counteracts the antiviral effects of host BST2/tetherin, while cooperatively activating the NF-kappa-B pathway with VP40.
+        </p>
+        <p class="description">
+            Shed GP functions as a decoy to neutralize anti-GP antibodies and activates macrophages and dendritic cells, further driving immune dysregulation. Collectively, GP's multifaceted roles in viral entry, immune suppression, and vascular disruption are central to filovirus infection and pathogenesis.
+        </p>
+        <p class="description">
+            The domain we conserved is the mucin-like region that seems to be involved in the cytotoxic function. This region is also involved in binding to human CLEC10A (<a href="https://www.uniprot.org/uniprotkb/Q05320/entry" target="_blank">UniProt entry</a>).
+        </p>
+        <p class="description"><strong>If you want to see the highlight blue conserved domain, you may need to refresh a couple times.</strong></p>
+        <!-- cRMSD Display -->
+        <p id="crmsd-overall" class="description">cRMSD between the domain in the original and generated protein structures: <span>Loading...</span></p>
+        
         <!-- Viewer for Original Protein -->
         <h2 class="viewer-title">GP - Envelope glycoprotein (PDB ID: 6F6N)</h2>
         <div id="viewer-original" class="viewer"></div>
-        <p><strong>cRMSD:</strong> <span id="crmsd-original">Loading...</span></p>
 
-         <!-- Viewer for Edited Protein -->
+        <!-- Viewer for Edited Protein -->
         <h2 class="viewer-title">Generated Protein</h2>
         <div id="viewer-generated" class="viewer"></div>
-        <p><strong>cRMSD:</strong> <span id="crmsd-original">Loading...</span></p>
-        
     </div>
 
     <script>
@@ -66,7 +78,7 @@
         }
 
         // Function to initialize a viewer for a specific div and PDB file
-        function loadProtein(viewerId, pdbPath, highlightPath, crmsdPath, color_choice) {
+        function loadProtein(viewerId, pdbPath, highlightPath, colorChoice) {
             console.log(`Loading PDB: ${pdbPath} for viewer ${viewerId}`);
             const viewer = $3Dmol.createViewer(viewerId, { backgroundColor: "white" });
 
@@ -80,7 +92,7 @@
                 })
                 .then(pdbContent => {
                     viewer.addModel(pdbContent, "pdb"); // Add the PDB model
-                    viewer.setStyle({}, { cartoon: { color:  color_choice} }); // Apply cartoon style
+                    viewer.setStyle({}, { cartoon: { color: colorChoice } }); // Apply cartoon style
                     viewer.zoomTo(); // Center the view
                     viewer.render(); // Render the viewer
                 })
@@ -103,13 +115,15 @@
                 .catch(error => {
                     console.error(`Error loading highlighted residues (${highlightPath}):`, error);
                 });
+        }
 
-            // Load cRMSD and display it
+        // Function to load and display cRMSD value
+        function loadCrmsd(crmsdPath) {
             loadJSON(crmsdPath)
                 .then(data => {
-                    console.log("cRMSD Data:", data);
                     if (data.crmsd !== undefined) {
-                        document.getElementById(`crmsd-${viewerId.split('-')[1]}`).textContent = data.crmsd.toFixed(4);
+                        // Update the overall cRMSD display
+                        document.querySelector("#crmsd-overall span").textContent = data.crmsd.toFixed(4);
                     }
                 })
                 .catch(error => {
@@ -117,22 +131,23 @@
                 });
         }
 
-        // Load protein with annotated residues and cRMSD
+        // Load protein viewers
         loadProtein(
             "viewer-original",             // Viewer ID
             "original_structure.pdb",      // Path to PDB file
-            "original_domain.json",   // Path to JSON with highlighted residues
-            "crmsd.json", // Path to JSON with cRMSD data
+            "original_domain.json",        // Path to JSON with highlighted residues
             "lightgrey"
         );
 
         loadProtein(
-            "viewer-generated",             // Viewer ID
-            "generated_structure.pdb",      // Path to PDB file
-            "generated_domain.json",   // Path to JSON with highlighted residues
-            "crmsd.json", // Path to JSON with cRMSD data
+            "viewer-generated",            // Viewer ID
+            "generated_structure.pdb",     // Path to PDB file
+            "generated_domain.json",       // Path to JSON with highlighted residues
             "lightgreen"
         );
+
+        // Load and display cRMSD value once
+        loadCrmsd("crmsd.json");
     </script>
 </body>
 </html>
