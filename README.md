@@ -50,17 +50,17 @@ jbrowse add-track annotations.gff.gz --out $APACHE_ROOT/jbrowse2 --load copy
 jbrowse text-index --out $APACHE_ROOT/jbrowse2
 ```
 
-Move the filovirus_proteins into your root jbrowse2 folder, in order to visualize proteins later on:
+Move the following files into your root jbrowse2 folder, in order to visualize the protein structures!
 ```
-cp jbrowse2/filovirus_proteins $APACHE_ROOT/jbrowse2
+cp -r jbrowse2/filovirus_proteins $APACHE_ROOT/jbrowse2
+cp jbrowse2/index.html $APACHE_ROOT/jbrowse2
 ```
 
 ### Step 5: Use your genome browser to explore Filovirus proteins amd their structures
 Launch JBrowse2 by opening http://yourhost/jbrowse2/ again in your web browser.
 
-### IF... this doesn't work for you, you can refer back to this github lab for the setup instructions
+### IF... this doesn't work for you, you can refer back to this github lab for the setup instructions! 
 https://github.com/bioe131/lab-8-toussm?tab=readme-ov-file
 
 ## Protein Data! The most exciting part ;)
-For protein reproducibility, refer to the README.md within jbrowse2/filovirus_proteins. 
-Within this folder, you can also find the PDBs if you want to use those directly for the JBrowse protein structure plugin. 
+For protein reproducibility, refer to the README.md within jbrowse2/filovirus_proteins. This is optional if you want to reproduce this structure data on your own. However, this will require uploading the jupyter notebook into Google Colab for GPU access. Within this folder, you can also find the PDBs if you want to use those directly for the JBrowse protein structure plugin. 
